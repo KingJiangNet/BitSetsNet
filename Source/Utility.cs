@@ -4,6 +4,11 @@ namespace BitsetsNET
 {
     class Utility
     {
+        private const long Mask1 = 0x5555555555555555; //binary: 0101...
+        private const long Mask2 = 0x3333333333333333; //binary: 00110011..
+        private const long Mask4 = 0x0f0f0f0f0f0f0f0f; //binary:  4 zeros,  4 ones ...
+        private const long H01 = 0x0101010101010101; //the sum of 256 to the power of 0,1,2,3...
+
         /// <summary>
         /// Gets the 16 highest-order bits from an integer.
         /// </summary>
@@ -117,22 +122,34 @@ namespace BitsetsNET
             return -(low + 1);
         }
         
-        /// <summary>
-        /// Naive implementation to count the number of true bits in a word.
-        /// </summary>
-        /// <param name="w">word</param>
-        /// <returns>The number of true bits in the word</returns>
-        public static int LongBitCount(long w)
+        ///// <summary>
+        ///// Naive implementation to count the number of true bits in a word.
+        ///// </summary>
+        ///// <param name="w">word</param>
+        ///// <returns>The number of true bits in the word</returns>
+        //public static int LongBitCount(long w)
+        //{
+        //    int rtnVal = 0;
+        //    ulong word = (ulong)w;
+
+        //    for (; word > 0; rtnVal++)
+        //    {
+        //        word &= word - 1;
+        //    }
+
+        //    return rtnVal;
+        //}
+
+        public static int LongBitCount(long n)
         {
-            int rtnVal = 0;
-            ulong word = (ulong)w;
+            if (n == 0)
+                return 0;
 
-            for (; word > 0; rtnVal++)
-            {
-                word &= word - 1;
-            }
+            n -= (n >> 1) & Mask1;             // Put count of each 2 bits into those 2 bits
+            n = (n & Mask2) + ((n >> 2) & Mask2); // Put count of each 4 bits into those 4 bits 
+            n = (n + (n >> 4)) & Mask4;        // Put count of each 8 bits into those 8 bits 
 
-            return rtnVal;
+            return (int)((n * H01) >> 56);  // Returns left 8 bits of x + (x<<8) + (x<<16) + (x<<24) + ... 
         }
 
         /// <summary>

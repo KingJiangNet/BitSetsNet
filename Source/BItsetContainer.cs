@@ -90,7 +90,6 @@ namespace BitsetsNET
             return ac;
         }
 
-
         /// <summary>
         /// Fill the array with set bits.
         /// </summary>
@@ -287,6 +286,9 @@ namespace BitsetsNET
         /// <returns>The cardinality</returns>
         public override int GetCardinality()
         {
+            // In some cases, the cached Cardinality is incorrect, so recalculate it
+            ComputeCardinality();
+
             return Cardinality;
         }
 
