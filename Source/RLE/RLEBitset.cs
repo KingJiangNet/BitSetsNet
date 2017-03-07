@@ -821,7 +821,7 @@ namespace BitsetsNET
         public void Serialize(Stream stream)
         {
             //We don't care about the encoding, but we have to specify something to be able to set the stream as leave open.
-            using (BinaryWriter writer = new BinaryWriter(stream, Encoding.Default, true))
+            using (BinaryWriter writer = new BinaryWriter(stream.WrapAsNonClosingStream(), Encoding.Default))
             {
                 writer.Write(this.length);
                 foreach (Run r in this.runArray)
@@ -842,7 +842,7 @@ namespace BitsetsNET
             RLEBitset bitset = new RLEBitset();
 
             //We don't care about the encoding, but we have to specify something to be able to set the stream as leave open.
-            using (BinaryReader reader = new BinaryReader(stream, Encoding.Default, true))
+            using (BinaryReader reader = new BinaryReader(stream.WrapAsNonClosingStream(), Encoding.Default))
             {
                 bitset.length = reader.ReadInt32();
                 while (stream.Position < stream.Length - 1)

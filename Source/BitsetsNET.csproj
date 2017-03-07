@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BitsetsNET</RootNamespace>
     <AssemblyName>BitsetsNET</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -30,6 +30,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>sn.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -44,6 +50,7 @@
     <Compile Include="ArrayContainer.cs" />
     <Compile Include="BitsetContainer.cs" />
     <Compile Include="Container.cs" />
+    <Compile Include="NonClosingStreamWrapper.cs" />
     <Compile Include="RoaringArray.cs" />
     <Compile Include="IBitset.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -51,6 +58,9 @@
     <Compile Include="RoaringBitset.cs" />
     <Compile Include="UncompressedBitArray.cs" />
     <Compile Include="Utility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sn.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

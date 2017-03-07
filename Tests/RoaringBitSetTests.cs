@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace BitsetsNET.Tests
 {
     [TestClass()]
-    public class RoaringBitSetTests : BaseBitSetTests 
+    public class RoaringBitSetTests : BaseBitSetTests
     {
         protected override IBitset CreateSetFromIndices(int[] indices, int length)
         {
@@ -20,7 +21,7 @@ namespace BitsetsNET.Tests
         {
             int TEST_SET_LENGTH = 10;
             int[] indicies = SetGenerator.GetRandomArray(TEST_SET_LENGTH);
-            
+
             RoaringBitset actual = (RoaringBitset)CreateSetFromIndices(indicies, TEST_SET_LENGTH);
             RoaringBitset expected = null;
 
@@ -30,7 +31,7 @@ namespace BitsetsNET.Tests
                 ms.Position = 0;
                 expected = RoaringBitset.Deserialize(ms);
             }
-            
+
             Assert.AreEqual(actual, expected);
         }
 
